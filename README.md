@@ -4,7 +4,7 @@ A modern, web-based RPG creation platform inspired by RPG Maker.
 
 built with:
 
-- Next.js,
+- Next.js
 - shadcn/ui
 
 Designed for real-time collaboration, visual scripting, and cross-platform
