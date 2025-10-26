@@ -23,28 +23,28 @@ export function MenubarDemo() {
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent>
           <MenubarItem>
-            New{" "}
+            New
             <MenubarShortcut>
-              <Kbd>⌘N</Kbd>
+              <Kbd>Ctrl + N</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarItem>
-            Open{" "}
+            Open
             <MenubarShortcut>
-              <Kbd>⌘O</Kbd>
+              <Kbd>Ctrl + O</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarItem>
-            Save{" "}
+            Save
             <MenubarShortcut>
-              <Kbd>⌘S</Kbd>
+              <Kbd>Ctrl + S</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarSeparator />
           <MenubarItem>
-            Exit{" "}
+            Exit
             <MenubarShortcut>
-              <Kbd>⌘Q</Kbd>
+              <Kbd>Ctrl + Q</Kbd>
             </MenubarShortcut>
           </MenubarItem>
         </MenubarContent>
@@ -55,34 +55,34 @@ export function MenubarDemo() {
         <MenubarTrigger>Edit</MenubarTrigger>
         <MenubarContent>
           <MenubarItem>
-            Undo{" "}
+            Undo
             <MenubarShortcut>
-              <Kbd>⌘Z</Kbd>
+              <Kbd>Ctrl + Z</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarItem>
-            Redo{" "}
+            Redo
             <MenubarShortcut>
-              <Kbd>⇧⌘Z</Kbd>
+              <Kbd>⇧Ctrl + Z</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarSeparator />
           <MenubarItem>
-            Cut{" "}
+            Cut
             <MenubarShortcut>
-              <Kbd>⌘X</Kbd>
+              <Kbd>Ctrl + X</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarItem>
-            Copy{" "}
+            Copy
             <MenubarShortcut>
-              <Kbd>⌘C</Kbd>
+              <Kbd>Ctrl + C</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarItem>
-            Paste{" "}
+            Paste
             <MenubarShortcut>
-              <Kbd>⌘V</Kbd>
+              <Kbd>Ctrl + V</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarSeparator />
@@ -102,13 +102,13 @@ export function MenubarDemo() {
         <MenubarTrigger>Selection</MenubarTrigger>
         <MenubarContent>
           <MenubarItem>
-            Select All{" "}
+            Select All
             <MenubarShortcut>
-              <Kbd>⌘A</Kbd>
+              <Kbd>Ctrl + A</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarItem>
-            Cancel Selection{" "}
+            Cancel Selection
             <MenubarShortcut>
               <Kbd>Esc</Kbd>
             </MenubarShortcut>
@@ -126,15 +126,15 @@ export function MenubarDemo() {
           <MenubarCheckboxItem>Always Show Full URLs</MenubarCheckboxItem>
           <MenubarSeparator />
           <MenubarItem>
-            Reload{" "}
+            Reload
             <MenubarShortcut>
-              <Kbd>⌘R</Kbd>
+              <Kbd>Ctrl + R</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarItem disabled>
-            Force Reload{" "}
+            Force Reload
             <MenubarShortcut>
-              <Kbd>⇧⌘R</Kbd>
+              <Kbd>⇧Ctrl + R</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarSeparator />

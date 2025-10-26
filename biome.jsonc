@@ -10,11 +10,16 @@
     "ignoreUnknown": true,
     "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
   },
+  "css": {
+    "parser": {
+      // Enable Tailwind CSS directives support for biome 2.3.0 and ultracite 6.0
+      "tailwindDirectives": true
+    }
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2
-    // "lineEnding": "crlf"
   },
   "linter": {
     "enabled": true,
