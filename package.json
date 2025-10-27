@@ -14,7 +14,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "npx ultracite check",
-    "format": "npx ultracite fix"
+    "format": "npx ultracite fix",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "db:push": "drizzle-kit push",
+    "db:pull": "drizzle-kit pull",
+    "db:check": "drizzle-kit check",
+    "db:up": "drizzle-kit up"
   },
   "dependencies": {
     "@radix-ui/react-menubar": "^1.1.16",
@@ -38,7 +45,7 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "babel-plugin-react-compiler": "1.0.0",
-    "dotenv": "^17.2.3",
+    "better-sqlite3": "^12.4.1",
     "drizzle-kit": "^0.31.5",
     "shadcn": "^3.5.0",
     "tailwindcss": "^4.1.16",

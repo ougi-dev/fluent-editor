@@ -34,5 +34,7 @@
   "[tailwindcss]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // Use LF as the default end of line so ultracite stops complaining
+  "files.eol": "\n"
 }

@@ -8,11 +8,19 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+    "includes": [
+      "**",
+      "!node_modules",
+      "!.next",
+      "!dist",
+      "!build",
+      "!*.lock",
+      "!src/db/drizzle" // Ignore auto-generated Drizzle ORM files
+    ]
   },
   "css": {
     "parser": {
-      "tailwindDirectives": true
+      "tailwindDirectives": true // Enable Tailwind CSS directives like @apply, @screen, etc.
     }
   },
   "formatter": {
@@ -28,6 +36,7 @@
         "noUnknownAtRules": "off"
       },
       "performance": {
+        // shadcnui basic components import are not ready yet
         "noNamespaceImport": "off"
       }
     },
