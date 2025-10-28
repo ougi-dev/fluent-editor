@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/menubar";
 import { useFullscreen } from "@/hooks/use-fullscreen";
 
-export function MenubarDemo() {
+export function AppBarMenu() {
   return (
     <Menubar>
       {/* FILE MENU */}
