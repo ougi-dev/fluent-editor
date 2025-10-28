@@ -1,12 +1,7 @@
-# Fluent Editor — TODOs & Roadmap
+# Fluent Editor — TODOs
 
 > [!IMPORTANT]
-> this file is generated with ai, it can contains errors or inacuracies
-
-> Scope: Editor layer only (not engine)\
-> Stack: Next.js · Bun · shadcn/ui · React Flow · Drizzle ORM
-
----
+> this file is modified with help of AI, it can contains errors or inacuracies
 
 ## Core Editor Structure
 
@@ -21,33 +16,28 @@
 
 - [x] **MenuBar** (`src/components/menu-bar.tsx`,
       `src/components/ui/menubar.tsx`)
-  - [x] Implement base MenuBar using Radix UI
+  - [x] Implement base MenuBar using shadcn `components/ui/menubar`
   - [x] Add File, Edit, View menu structure
-  - [x] Add theme switcher integration
+  - [x] Add theme switcher integration (only logic for now)
   - [ ] Add window controls (close / minimize / maximize)
-  - [ ] Implement draggable titlebar for desktop build
+  - [ ] Implement draggable titlebar for future desktop build (electron, tauri?)
 
 - [ ] **StatusBar** (`src/components/status-bar.tsx`)
   - [x] Base container with left/right item alignment
   - [x] `StatusBarItem` component with icon + label (Lucide, 16px)
   - [x] Add keyboard focus styles
   - [ ] Add customizable background themes (light/dark/muted)
-
-  **Enhancements**
   - [ ] Add optional `tooltip` prop to `StatusBarItem` (description / shortcut
         hint)
   - [ ] Add `StatusBarGroup` component for grouped items (e.g. coordinates)
-    ```tsx
-    <StatusBarGroup label="Coords">
-        <StatusBarItem>X: 12</StatusBarItem>
-        <StatusBarItem>Y: 8</StatusBarItem>
-    </StatusBarGroup>;
-    ```
+  ```tsx
+  <StatusBarGroup label="Coords">
+      <StatusBarItem>X: 12</StatusBarItem>
+      <StatusBarItem>Y: 8</StatusBarItem>
+  </StatusBarGroup>;
+  ```
   - [ ] Add plugin API for injecting custom items
-        (`registerStatusItem({ side, component })`)
-  - [ ] Add persistent indicators (FPS, autosave state, connection status)
-
----
+        (`registerStatusItem({ side, component })` )
 
 ## Event Editor (React Flow-based)
 
@@ -60,15 +50,11 @@
 - [ ] Add mini-map, grid snapping, alignment helpers
 - [ ] Add auto-save and version tracking per event
 
----
-
 ## Map Editor
 
 - TODO: define map editor features and structure
   - Consider: tilemap rendering model, layers (ground, object, collision,
     events), event placement UX, map persistence/migrations (Drizzle)
-
----
 
 ## Database Editor
 
@@ -76,33 +62,34 @@
   - Consider: schemas for Actors / Items / Skills / Weapons / Classes,
     search/filter UI, inline editing with validation, undo/redo
 
----
-
-## Future Components
-
-- [ ] Plugin system for editor extensions
-- [ ] Settings modal (theme, autosave interval, localization)
-- [ ] Character editor (sprites, portraits, animations)
-- [ ] Audio editor (BGM/BGS/ME/SE)
-
----
-
 ## Developer Notes
 
-- Shared UI: `/components/elements`
-- Atomic primitives: `/components/ui` (shadcn)
-- React Flow nodes: `/components/nodes`
-- Naming convention: `AppBarX`, `StatusBarX`, `SidebarX`, `EditorX`
-- TypeScript: strict mode enabled (`"strict": true` in tsconfig.json)
-- Linting: Biome (preferences: `for...of` over `forEach`, avoid `any`,
-  consistent imports)
-- Keep code modular and plugin-oriented
+### Folder Structure:
+
+A `component` is made of `elements` that are made of `UI` primitives.
+
+```bash
+src/
+├─ components/
+│  ├─ elements/     # Shared UI pieces made of primitives
+│  │  ├─ app-bar-controls.tsx
+│  │  ├─ app-bar-menu.tsx
+│  │  └─ app-bar-title.tsx
+│  ├─ ui/           # Atomic UI primitives (shadcn/ui)     
+│  ├─ nodes/        # React Flow custom node components
+│  └─  app-bar.tsx  # Composed using elements (app-bar-[element].tsx)
+├─ app/
+│  ├─ layout.tsx    # Imports and uses components
+```
+
+### Naming Convention
+
+- `Kebab-case` for all filenames and folders.
+- Naming convention: `app-bar` is a component and `app-bar-*` are the elements.
+  that compose it.
+- TypeScript: strict mode enabled (`"strict": true` in tsconfig.json).
+- Linting: Use ultracite with biome, it can be frustrating but ensures code
+  consistency.
+- Keep code modular and plugin-oriented.
 
 ---
-
-## Next Steps (short list)
-
-- [ ] Finalize StatusBar plugin injection system
-- [ ] Implement first Event Editor prototype (React Flow canvas + one node)
-- [ ] Define Drizzle schemas for events and maps; add migrations
-- [ ] Prototype autosave and project persistence
