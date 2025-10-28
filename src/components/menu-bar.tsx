@@ -1,3 +1,4 @@
+"use client";
 import { Kbd } from "@/components/ui/kbd";
 import {
   Menubar,
@@ -14,6 +15,7 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
+import { useFullscreen } from "@/hooks/use-fullscreen";
 
 export function MenubarDemo() {
   return (
@@ -138,7 +140,9 @@ export function MenubarDemo() {
             </MenubarShortcut>
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem>Toggle Fullscreen</MenubarItem>
+          <MenubarItem onClick={useFullscreen().toggleFullscreen}>
+            Toggle Fullscreen
+          </MenubarItem>
           <MenubarItem>Hide Sidebar</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
