@@ -17,7 +17,7 @@ export function StatusBar({ children }: PropsWithChildren) {
   }
 
   return (
-    <footer className="fixed right-0 bottom-0 left-0 h-6 border-border border-t bg-muted/60 backdrop-blur-sm">
+    <footer className="fixed right-0 bottom-0 left-0 h-6 border-border border-t">
       <div className="grid h-full grid-cols-2 items-center">
         <div className="flex h-full items-center justify-start">
           {items.left}
