@@ -1,7 +1,7 @@
 # Fluent Editor — TODOs & Roadmap
 
-[!IMPORTANT] this file is generated with ai, it can contains errors or
-inacuracies
+> [!IMPORTANT]
+> this file is generated with ai, it can contains errors or inacuracies
 
 > Scope: Editor layer only (not engine)\
 > Stack: Next.js · Bun · shadcn/ui · React Flow · Drizzle ORM
