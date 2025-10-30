@@ -17,7 +17,7 @@ export function StatusBarItem({
   return (
     <div
       className={cn(
-        "flex h-full cursor-pointer select-none items-center px-2 text-xs hover:bg-muted/80",
+        "flex h-full cursor-pointer select-none items-center bg-primary px-2 text-primary-foreground text-xs hover:bg-accent/20",
         className
       )}
     >
