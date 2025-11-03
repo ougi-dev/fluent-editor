@@ -8,15 +8,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": [
-      "**",
-      "!node_modules",
-      "!.next",
-      "!dist",
-      "!build",
-      "!*.lock",
-      "!src/db/drizzle" // Ignore auto-generated Drizzle ORM files
-    ]
+    "includes": ["**", "!node_modules", "!.next", "!dist", "!build", "!*.lock"]
   },
   "css": {
     "parser": {
