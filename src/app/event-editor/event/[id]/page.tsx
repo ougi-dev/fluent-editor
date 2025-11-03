@@ -1,3 +1,4 @@
+import type { Edge, Node } from "@xyflow/react";
 import { eq } from "drizzle-orm";
 import { cache } from "react";
 import NodeCanvasContainer from "@/components/node-canvas-container";
@@ -26,10 +27,11 @@ export default async function EventIDPage({ params }: { params: EventParams }) {
   if (!event) {
     return <div>Event not found</div>;
   }
+  const nodes: Node[] = event.nodes ? JSON.parse(event.nodes) : [];
+  const edges: Edge[] = event.edges ? JSON.parse(event.edges) : [];
 
-  // You can parse your nodes and edges if they are stored as JSON
-  const nodes = event.nodes ? JSON.parse(event.nodes) : [];
-  const edges = event.edges ? JSON.parse(event.edges) : [];
+  // biome-ignore lint/suspicious/noConsole: <testing>
+  console.table(nodes[2].data);
 
   return (
     <div className="h-full w-full">

@@ -1,5 +1,6 @@
 "use client";
 
+import type { NodeProps, Node as typenode } from "@xyflow/react";
 import { Handle, Position } from "@xyflow/react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,18 +15,9 @@ import {
 } from "@/components/ui/node";
 import { useUpdateNodeData } from "@/hooks/use-update-node-data";
 
-type IfNodeData = {
-  condition: string;
-};
-function IfNode({
-  id,
-  data,
-}: {
-  id: string;
-  data: IfNodeData;
-  selected: boolean;
-}) {
-  const updateNode = useUpdateNodeData<IfNodeData>(id);
+type IfNode = typenode<{ condition: string }, "condition">;
+function IfNode({ data, id }: NodeProps<IfNode>) {
+  const updateNode = useUpdateNodeData<IfNode>(id);
 
   return (
     <Node>
@@ -45,8 +37,8 @@ function IfNode({
           className="text-xs"
           id={`if-${id}`}
           onChange={(e) => updateNode({ condition: e.target.value })}
-          placeholder="player.hp > 50"
-          value={data.condition}
+          placeholder="condition"
+          value={data.condition ?? ""}
         />
       </NodeContent>
       <NodeFooter>footer</NodeFooter>

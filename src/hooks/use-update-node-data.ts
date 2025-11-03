@@ -1,23 +1,25 @@
-import { useReactFlow } from "@xyflow/react";
+import { type Node, useReactFlow } from "@xyflow/react";
 import { useCallback } from "react";
 
 /**
- * A small utility hook for updating a node's data in React Flow.
+ * Generic hook to patch any node's data in React Flow.
  *
- * Example:
- * const updateNode = useUpdateNodeData(id);
- * updateNode({ text: "Hello" });
+ * - Works with *any* custom Node type
+ * - Fully type-safe (no `any`)
+ * - Efficient: wrapped in `useCallback`
+ *
+ * @example
+ * const updateNode = useUpdateNodeData<Node<{ condition: string }, "if">>("if-1");
+ * updateNode({ condition: "player.hp > 50" });
  */
-export function useUpdateNodeData<T extends object = Record<string, unknown>>(
-  id: string
-) {
-  const { setNodes } = useReactFlow();
 
+export function useUpdateNodeData<N extends Node = Node>(id: N["id"]) {
+  const { setNodes } = useReactFlow();
   return useCallback(
-    (newData: Partial<T>) => {
+    (patch: Partial<N["data"]>) => {
       setNodes((nodes) =>
-        nodes.map((n) =>
-          n.id === id ? { ...n, data: { ...n.data, ...newData } } : n
+        nodes.map((node) =>
+          node.id === id ? { ...node, data: { ...node.data, ...patch } } : node
         )
       );
     },

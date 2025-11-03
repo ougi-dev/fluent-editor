@@ -19,12 +19,8 @@ import type {
   OnEdgesChange,
   OnNodesChange,
 } from "@xyflow/react";
-import IfNode from "@/components/nodes/node-if";
+import { nodeTypes } from "@/components/nodes/node-types";
 import { editorSettings } from "@/lib/utils/editor-settings";
-
-export const nodeTypes = {
-  if: IfNode,
-};
 
 type NodeCanvasContainerProps = {
   nodes: Node[];
