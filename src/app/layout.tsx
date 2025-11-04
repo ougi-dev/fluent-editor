@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import AppBar from "@/components/app-bar";
+import StatusBar from "@/components/status-bar";
 import { editorSettings } from "@/lib/utils/editor-settings";
 
 const geistSans = Geist({
@@ -35,7 +37,9 @@ export default function RootLayout({
           defaultTheme={editorSettings.theme}
           enableSystem
         >
+          <AppBar />
           {children}
+          <StatusBar />
         </ThemeProvider>
       </body>
     </html>

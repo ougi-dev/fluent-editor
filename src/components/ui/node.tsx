@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 /* ------------------------------ Node Container ----------------------------- */
-function Node({ className, ...props }: React.ComponentProps<"div">) {
+function NodeContainer({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       className={cn(
@@ -107,7 +107,7 @@ function NodeSeparator({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 export {
-  Node,
+  NodeContainer,
   NodeHeader,
   NodeFooter,
   NodeTitle,

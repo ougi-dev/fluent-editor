@@ -1,34 +1,37 @@
-// import { cva } from "class-variance-authority";
-import React, { type PropsWithChildren, type ReactElement } from "react";
 import {
-  StatusBarItem,
-  type StatusBarItemProps,
-} from "@/components/elements/status-bar-component";
+  Bell,
+  CircleX,
+  GitBranch,
+  Pin,
+  Sparkles,
+  TriangleAlert,
+} from "lucide-react";
 
-// const StatusBarVariants = cva(); TODO: add variants
+import { StatusBarContainer } from "@/components/elements/status-bar-container";
+import { StatusBarItem } from "@/components/ui/status-bar-component";
 
-export function StatusBar({ children }: PropsWithChildren) {
-  const items = {
-    left: [] as ReactElement<StatusBarItemProps>[],
-    right: [] as ReactElement<StatusBarItemProps>[],
-  };
-  for (const child of React.Children.toArray(children)) {
-    if (React.isValidElement(child) && child.type === StatusBarItem) {
-      const element = child as ReactElement<StatusBarItemProps>;
-      items[element.props.side === "right" ? "right" : "left"].push(element);
-    }
-  }
-
+export default function StatusBar() {
   return (
-    <footer className="fixed right-0 bottom-0 left-0 z-0 h-6 border-primary border-t bg-primary">
-      <div className="grid h-full grid-cols-2 items-center">
-        <div className="flex h-full items-center justify-start">
-          {items.left}
-        </div>
-        <div className="flex h-full items-center justify-end">
-          {items.right}
-        </div>
-      </div>
-    </footer>
+    <StatusBarContainer>
+      <StatusBarItem lucideIcon={GitBranch} side="left">
+        Main Branch
+      </StatusBarItem>
+      <StatusBarItem lucideIcon={Pin} side="left">
+        Map: Overworld
+      </StatusBarItem>
+      <StatusBarItem side="left">X: {8}</StatusBarItem>
+      <StatusBarItem side="left">Y: {43}</StatusBarItem>
+      <StatusBarItem side="right">Zoom: 100%</StatusBarItem>
+      <StatusBarItem lucideIcon={Sparkles} side="right" />
+      <StatusBarItem lucideIcon={TriangleAlert} side="right">
+        0
+      </StatusBarItem>
+      <StatusBarItem lucideIcon={CircleX} side="right">
+        0
+      </StatusBarItem>
+      <StatusBarItem lucideIcon={Bell} side="right">
+        0
+      </StatusBarItem>
+    </StatusBarContainer>
   );
 }

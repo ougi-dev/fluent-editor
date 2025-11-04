@@ -5,11 +5,9 @@ import { useCallback } from "react";
  * Generic hook to patch any node's data in React Flow.
  *
  * - Works with *any* custom Node type
- * - Fully type-safe (no `any`)
- * - Efficient: wrapped in `useCallback`
  *
  * @example
- * const updateNode = useUpdateNodeData<Node<{ condition: string }, "if">>("if-1");
+ * const updateNode = useUpdateNodeData<CostumNode>(id);
  * updateNode({ condition: "player.hp > 50" });
  */
 

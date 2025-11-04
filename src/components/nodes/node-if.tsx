@@ -1,12 +1,12 @@
 "use client";
 
-import type { NodeProps, Node as typenode } from "@xyflow/react";
+import type { Node, NodeProps } from "@xyflow/react";
 import { Handle, Position } from "@xyflow/react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Node,
   NodeAction,
+  NodeContainer,
   NodeContent,
   NodeDescription,
   NodeFooter,
@@ -15,12 +15,12 @@ import {
 } from "@/components/ui/node";
 import { useUpdateNodeData } from "@/hooks/use-update-node-data";
 
-type IfNode = typenode<{ condition: string }, "condition">;
+type IfNode = Node<{ condition: string }, "condition">;
+
 function IfNode({ data, id }: NodeProps<IfNode>) {
   const updateNode = useUpdateNodeData<IfNode>(id);
-
   return (
-    <Node>
+    <NodeContainer>
       <NodeHeader>
         <NodeTitle>Conditional (If) </NodeTitle>
         <NodeAction>action</NodeAction>
@@ -58,7 +58,7 @@ function IfNode({ data, id }: NodeProps<IfNode>) {
         style={{ top: "75%" }}
         type="source"
       />
-    </Node>
+    </NodeContainer>
   );
 }
 export default IfNode;
