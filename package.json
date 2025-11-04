@@ -14,7 +14,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "ultracite check",
-    "format": "ultracite fix"
+    "format": "ultracite fix",
+    "start:db": "bun run src/db/start-db.ts"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.11",

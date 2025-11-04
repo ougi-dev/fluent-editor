@@ -1,23 +1,21 @@
-/** biome-ignore-all lint/suspicious/noConsole: <utility> */
-import { spawn } from "node:child_process";
+import { spawn } from "bun";
 
 console.log("Starting SurrealDB...");
 
-const surrealProcess = spawn("surreal", ["start", "--unauthenticated"], {
-  stdio: "inherit",
+const surrealProcess = spawn(["surreal", "start", "rocksdb:surreal.db"], {
+  stdout: "inherit",
+  stderr: "inherit",
 });
+surrealProcess.exited
+  .then((code) => {
+    if (code === 0) {
+      console.log("SurrealDB process exited successfully");
+    } else {
+      console.error(`SurrealDB process exited with code ${code}`);
+    }
+  })
+  .catch((err) => {
+    console.error("Failed to start SurrealDB:", err.message);
+  });
 
-surrealProcess.on("error", (error) => {
-  console.error("Failed to start SurrealDB:", error.message);
-});
-
-surrealProcess.on("exit", (code) => {
-  if (code === 0) {
-    console.log("SurrealDB process exited successfully");
-  } else {
-    console.error(`SurrealDB process exited with code ${code}`);
-  }
-});
-
-// Keep the script running
-process.stdin.resume();
+await new Promise(() => {});

@@ -1,8 +1,5 @@
-/** biome-ignore-all lint/style/noNonNullAssertion: <.env variables> */
-/** biome-ignore-all lint/suspicious/noConsole: <utils> */
 import Surreal from "surrealdb";
 
-// Define the database configuration interface
 type DbConfig = {
   url: string;
   namespace: string;
@@ -11,10 +8,8 @@ type DbConfig = {
   password: string;
 };
 
-// Define the default database configuration
 const DEFAULT_CONFIG: DbConfig = {
-  // url: process.env.SURREALDB_URL || "http://127.0.0.1:8000/rpc",
-  url: "./surreal.db",
+  url: process.env.SURREALDB_URL || "http://127.0.0.1:8000/rpc",
   namespace: process.env.SURREALDB_NAMESPACE || "test",
   database: process.env.SURREALDB_DATABASE || "test",
   username: process.env.SURREALDB_USER!,
