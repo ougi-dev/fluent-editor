@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang={editorSettings.language} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} grid min-h-screen grid-rows-[2.25rem_1fr_1.5rem] antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -38,7 +38,7 @@ export default function RootLayout({
           enableSystem
         >
           <AppBar />
-          {children}
+          <main className="row-start-2 overflow-hidden">{children}</main>
           <StatusBar />
         </ThemeProvider>
       </body>

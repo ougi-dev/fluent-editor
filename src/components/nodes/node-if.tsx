@@ -43,19 +43,21 @@ function IfNode({ data, id }: NodeProps<IfNode>) {
       </NodeContent>
       <NodeFooter>footer</NodeFooter>
       {/* Connection handles */}
-      <Handle className="bg-blue-500!" position={Position.Left} type="target" />
       <Handle
-        className="!bg-green-500"
+        position={Position.Left}
+        style={{ background: "#0000ff" }}
+        type="target"
+      />
+      <Handle
         id="true"
         position={Position.Right}
-        style={{ top: "25%" }}
+        style={{ top: "25%", background: "#00ff00" }}
         type="source"
       />
       <Handle
-        className="!bg-red-500"
         id="false"
         position={Position.Right}
-        style={{ top: "75%" }}
+        style={{ top: "75%", background: "#ff0000" }}
         type="source"
       />
     </NodeContainer>

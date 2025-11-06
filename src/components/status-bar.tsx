@@ -6,7 +6,6 @@ import {
   Sparkles,
   TriangleAlert,
 } from "lucide-react";
-
 import { StatusBarContainer } from "@/components/elements/status-bar-container";
 import { StatusBarItem } from "@/components/ui/status-bar-component";
 

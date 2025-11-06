@@ -1,5 +1,6 @@
 /** biome-ignore-all lint/suspicious/noConsole: <testing> */
 import type { Edge, Node } from "@xyflow/react";
+import type { Metadata } from "next";
 import { cache } from "react";
 import NodeCanvasContainer from "@/components/node-canvas-container";
 import { getDb } from "@/db/surreal";
@@ -42,16 +43,21 @@ const getEvent = cache(
   }
 );
 
-// ✅ Metadata generation (await params)
-export async function generateMetadata({ params }: { params: EventParams }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: EventParams;
+}): Promise<Metadata> {
   const event = await getEvent(params);
   return {
     title: event?.name ?? "Event Not Found",
+    description: `Editing ${event?.name ?? "Event Not Found"}`,
   };
 }
 
 // ✅ Main Page (await params)
 export default async function EventIDPage({ params }: { params: EventParams }) {
+  const { id } = await params;
   const event = await getEvent(params);
 
   if (!event) {
@@ -69,7 +75,7 @@ export default async function EventIDPage({ params }: { params: EventParams }) {
 
   return (
     <div className="h-full w-full">
-      <NodeCanvasContainer edges={edges} nodes={nodes} />
+      <NodeCanvasContainer edges={edges} graphId={id} nodes={nodes} />
     </div>
   );
 }
