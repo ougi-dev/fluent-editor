@@ -1,95 +1,102 @@
-# Fluent Editor — TODOs
+# Fluent Editor — Project Plan (updated)
 
 > [!IMPORTANT]
-> this file is modified with help of AI, it can contains errors or inacuracies
+> This file is maintained with AI assistance; it may contain mistakes. Treat as a working plan.
 
-## Core Editor Structure
+## Recently completed
 
-- [ ] **App Shell** (`src/app/layout.tsx`)
-  - [x] Set up Next.js 16 app router structure
-  - [x] Implement ThemeProvider (`src/components/theme-provider.tsx`)
-  - [ ] Implement responsive layout (Sidebar + AppBar + StatusBar)
-  - [ ] Add `AppSidebar` using shadcn `components/ui/sidebar`
-  - [ ] Create modular routes (`/map-editor`, `/event-editor`,
-        `/database-editor`)
-  - [ ] Add dynamic title updates per editor
+- [x] Real-time node sync: use built-in `Node["id"]` (no custom id types)
+  - Hook: `src/hooks/use-node-sync.ts`
+  - Removed legacy `Dimensions/measured` handling in the sync layer
+  - Debounced updates with conflict retries and local-state merge before DB write
+- [x] Live query wiring for nodes/edges
+  - `src/hooks/use-live-query.ts` consumed in `node-canvas-container.tsx`
+- [x] Baseline data sanitization on read for canvas payloads
+  - `sanitizeNodes` / `sanitizeEdges` exist in `src/components/node-canvas-container.tsx`
 
-- [x] **MenuBar** (`src/components/menu-bar.tsx`,
-      `src/components/ui/menubar.tsx`)
-  - [x] Implement base MenuBar using shadcn `components/ui/menubar`
-  - [x] Add File, Edit, View menu structure
-  - [x] Add theme switcher integration (only logic for now)
-  - [ ] Add window controls (close / minimize / maximize)
-  - [ ] Implement draggable titlebar for future desktop build (electron, tauri?)
+## High-impact next steps
 
-- [ ] **StatusBar** (`src/components/status-bar.tsx`)
-  - [x] Base container with left/right item alignment
-  - [x] `StatusBarItem` component with icon + label (Lucide, 16px)
-  - [x] Add keyboard focus styles
-  - [ ] Add customizable background themes (light/dark/muted)
-  - [ ] Add optional `tooltip` prop to `StatusBarItem` (description / shortcut
-        hint)
-  - [ ] Add `StatusBarGroup` component for grouped items (e.g. coordinates)
-  ```tsx
-  <StatusBarGroup label="Coords">
-      <StatusBarItem>X: 12</StatusBarItem>
-      <StatusBarItem>Y: 8</StatusBarItem>
-  </StatusBarGroup>;
-  ```
-  - [ ] Add plugin API for injecting custom items
-        (`registerStatusItem({ side, component })` )
+### 1) Align types across sync context and hooks
 
-## Event Editor (React Flow-based)
+- [ ] Change `NodeSyncContext` to accept `nodeId: Node["id"]` (not `string`)
+  - File: `src/hooks/use-update-node-data.ts`
+  - Interface today: `scheduleSync: (nodeId: string, changes: Partial<Node>) => void;`
+  - Target: `scheduleSync: (nodeId: Node["id"], changes: Partial<Node>) => void;`
+- [ ] Ensure all callsites pass `Node["id"]` (React Flow changes already do)
 
-- [x] Decide on node-based event structure (no modal-heavy flows)
-- [ ] Implement base React Flow canvas
-  - [ ] Zoom / pan controls
-  - [ ] Custom nodes (`Show Text`, `Conditional Branch`, `Move`, etc.)
-- [ ] Create event library sidebar (drag-to-canvas)
-- [ ] Add node context menu (right click)
-- [ ] Add mini-map, grid snapping, alignment helpers
-- [ ] Add auto-save and version tracking per event
+### 2) Remove remaining dimension/measured usages
 
-## Map Editor
+- [ ] `src/components/node-canvas-container.tsx`: drop the `dimensions` change branch or migrate it to a no-op
+  - Today:
+    ```ts
+    } else if (change.type === "dimensions") {
+      scheduleSync(change.id, { measured: change.dimensions });
+    }
+    ```
+  - Target: remove this block (node dimensions are static in DB)
 
-- TODO: define map editor features and structure
-  - Consider: tilemap rendering model, layers (ground, object, collision,
-    events), event placement UX, map persistence/migrations (Drizzle)
+### 3) Sanitize on write (before DB)
 
-## Database Editor
+- [ ] Add `sanitizeChangesForDb(changes)` and call it at the start of `patchNode`
+  - File: `src/hooks/use-node-sync.ts`
+  - Validate: `id` present, `position` has numeric x/y, `data` is plain object, strip UI-only fields
+  - Optional: introduce a zod schema if `data` becomes complex
 
-- TODO: define database editor features and structure
-  - Consider: schemas for Actors / Items / Skills / Weapons / Classes,
-    search/filter UI, inline editing with validation, undo/redo
+### 4) Consolidate node merging
 
-## Developer Notes
+- [ ] Extract a pure helper `mergeNodeWithChanges(node, changes)`
+  - New file: `src/lib/utils/merge-node.ts`
+  - Use it in both:
+    - `src/hooks/use-node-sync.ts` (when building `nextNodes`)
+    - `src/hooks/use-update-node-data.ts` (when updating local state)
+  - Decide shallow vs deep merge for `data` (start shallow)
 
-### Folder Structure:
+### 5) Tighten read-time sanitization (optional but recommended)
 
-A `component` is made of `elements` that are made of `UI` primitives.
+- [ ] Keep sanitizers but enforce string ids and valid positions
+  - File: `src/components/node-canvas-container.tsx`
+  - Keep `satisfies Node` so TS checks shape without runtime cast proliferation
+  - Add dev-only warn when discarding malformed items (helps spot bad records)
 
-```bash
-src/
-├─ components/
-│  ├─ elements/     # Shared UI pieces made of primitives
-│  │  ├─ app-bar-controls.tsx
-│  │  ├─ app-bar-menu.tsx
-│  │  └─ app-bar-title.tsx
-│  ├─ ui/           # Atomic UI primitives (shadcn/ui)     
-│  ├─ nodes/        # React Flow custom node components
-│  └─  app-bar.tsx  # Composed using elements (app-bar-[element].tsx)
-├─ app/
-│  ├─ layout.tsx    # Imports and uses components
-```
+### 6) Edges sync parity
 
-### Naming Convention
+- [ ] Review `src/hooks/use-edge-sync.ts` to match node sync patterns
+  - Debounce, conflict retries, and optional sanitize-on-write for edges
 
-- `Kebab-case` for all filenames and folders.
-- Naming convention: `app-bar` is a component and `app-bar-*` are the elements.
-  that compose it.
-- TypeScript: strict mode enabled (`"strict": true` in tsconfig.json).
-- Linting: Use ultracite with biome, it can be frustrating but ensures code
-  consistency.
-- Keep code modular and plugin-oriented.
+## Canvas and UX
+
+- [ ] Event editor ergonomics
+  - [ ] Context menu on nodes (duplicate, delete, convert type)
+  - [ ] Grid snapping and alignment helpers
+  - [ ] Mini-map and controls toggle via settings
+- [ ] Custom nodes
+  - [ ] Build initial node set (Show Text, Conditional, Move, etc.) under `src/components/nodes/`
+
+## Persistence and schema
+
+- [ ] SurrealDB schema/validation strategy
+  - [ ] Add server-side validation or a gateway to enforce allowed node shape
+  - [ ] Plan migrations for future breaking changes (ids remain strings)
+
+## Quality gates and tests
+
+- [ ] Type and lint gate
+  - [ ] Ensure `NodeSyncContext` type alignment and no lingering `any`
+- [ ] Minimal tests (unit/smoke)
+  - [ ] `mergeNodeWithChanges` unit tests (data merge, position merge)
+  - [ ] `sanitizeNodes`/`sanitizeEdges` happy-path + malformed cases
+
+## Developer notes
+
+- Filenames: keep kebab-case across the repo
+- TypeScript: strict, prefer `Node["id"]` instead of custom aliases
+- Avoid UI-only fields in DB writes; sanitize on read and write
 
 ---
+
+If you want, I can immediately:
+
+1. Align `NodeSyncContext` to `Node["id"]` and remove the `dimensions` branch in `node-canvas-container.tsx`.
+2. Add `sanitizeChangesForDb` and a tiny `mergeNodeWithChanges` helper.
+
+Say “apply 1”, “apply 2”, or “apply both” and I’ll commit the changes.
