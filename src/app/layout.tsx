@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import AppBar from "@/components/app-bar";
+import StatusBar from "@/components/status-bar";
 import { editorSettings } from "@/lib/utils/editor-settings";
 
 const geistSans = Geist({
@@ -28,14 +30,16 @@ export default function RootLayout({
   return (
     <html lang={editorSettings.language} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} grid min-h-screen grid-rows-[2.25rem_1fr_1.5rem] antialiased`}
       >
         <ThemeProvider
           attribute="class"
           defaultTheme={editorSettings.theme}
           enableSystem
         >
-          {children}
+          <AppBar />
+          <main className="row-start-2 overflow-hidden">{children}</main>
+          <StatusBar />
         </ThemeProvider>
       </body>
     </html>

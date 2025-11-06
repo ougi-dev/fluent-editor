@@ -1,12 +1,12 @@
 "use client";
 
-import type { NodeProps, Node as typenode } from "@xyflow/react";
+import type { Node, NodeProps } from "@xyflow/react";
 import { Handle, Position } from "@xyflow/react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Node,
   NodeAction,
+  NodeContainer,
   NodeContent,
   NodeDescription,
   NodeFooter,
@@ -15,12 +15,12 @@ import {
 } from "@/components/ui/node";
 import { useUpdateNodeData } from "@/hooks/use-update-node-data";
 
-type IfNode = typenode<{ condition: string }, "condition">;
+type IfNode = Node<{ condition: string }, "condition">;
+
 function IfNode({ data, id }: NodeProps<IfNode>) {
   const updateNode = useUpdateNodeData<IfNode>(id);
-
   return (
-    <Node>
+    <NodeContainer>
       <NodeHeader>
         <NodeTitle>Conditional (If) </NodeTitle>
         <NodeAction>action</NodeAction>
@@ -43,22 +43,24 @@ function IfNode({ data, id }: NodeProps<IfNode>) {
       </NodeContent>
       <NodeFooter>footer</NodeFooter>
       {/* Connection handles */}
-      <Handle className="bg-blue-500!" position={Position.Left} type="target" />
       <Handle
-        className="!bg-green-500"
+        position={Position.Left}
+        style={{ background: "#0000ff" }}
+        type="target"
+      />
+      <Handle
         id="true"
         position={Position.Right}
-        style={{ top: "25%" }}
+        style={{ top: "25%", background: "#00ff00" }}
         type="source"
       />
       <Handle
-        className="!bg-red-500"
         id="false"
         position={Position.Right}
-        style={{ top: "75%" }}
+        style={{ top: "75%", background: "#ff0000" }}
         type="source"
       />
-    </Node>
+    </NodeContainer>
   );
 }
 export default IfNode;
