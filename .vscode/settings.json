@@ -36,5 +36,13 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   // Use LF as the default end of line so ultracite stops complaining
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.hg/store/**": true,
+    "**/.git/**": true,
+    "**/node_modules/**": true,
+    "**/.vscode/**": true
+  }
 }

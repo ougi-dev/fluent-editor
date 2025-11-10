@@ -1,11 +1,8 @@
 import { type Node, useReactFlow } from "@xyflow/react";
 import { createContext, useCallback, useContext } from "react";
 
-/**
- * Context for syncing node data to database
- */
 type NodeSyncContextType = {
-  scheduleSync: (nodeId: string, changes: Partial<Node>) => void;
+  scheduleSync: (nodeId: Node["id"], changes: Partial<Node>) => void;
 };
 
 export const NodeSyncContext = createContext<NodeSyncContextType | null>(null);

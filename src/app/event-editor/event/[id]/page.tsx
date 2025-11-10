@@ -3,7 +3,7 @@ import type { Edge, Node } from "@xyflow/react";
 import type { Metadata } from "next";
 import { cache } from "react";
 import NodeCanvasContainer from "@/components/node-canvas-container";
-import { getDb } from "@/db/surreal";
+import { getClientDb } from "@/db/client-db";
 
 type EventParams = Promise<{ id: string }>;
 
@@ -14,16 +14,16 @@ type GraphRecord = {
   edges: Edge[];
 };
 
-// ✅ Cached fetch function using type::thing for proper record matching
+// Cached fetch function using type::thing for proper record matching
 const getEvent = cache(
   async (params: EventParams): Promise<GraphRecord | null> => {
     const { id } = await params;
-    console.log("🧩 Fetching event with ID:", id);
+    console.log("[🧩] Fetching event with ID:", id);
 
-    const db = await getDb();
+    const db = await getClientDb();
 
     try {
-      // ✅ Proper query using type::thing() for ID matching
+      // Proper query using type::thing() for ID matching
       const result = await db.query<[GraphRecord[]]>(
         `SELECT * FROM graph WHERE id = type::thing('graph', $id);`,
         { id }
@@ -32,10 +32,10 @@ const getEvent = cache(
       const [rows] = result;
       const event = rows?.[0] ?? null;
 
-      console.log("📦 Loaded graph record:", event);
+      console.log("[📦] Loaded graph record:", event);
       return event;
     } catch (err) {
-      console.error("❌ Failed to fetch graph:", err);
+      console.error("[❌] Failed to fetch graph:", err);
       return null;
     } finally {
       await db.close();
@@ -62,8 +62,8 @@ export default async function EventIDPage({ params }: { params: EventParams }) {
 
   if (!event) {
     return (
-      <div className="flex h-full items-center justify-center text-red-500">
-        ❌ Event not found
+      <div className="flex h-full items-center justify-center">
+        Event not found
       </div>
     );
   }

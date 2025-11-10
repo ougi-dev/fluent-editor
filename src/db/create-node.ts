@@ -2,10 +2,10 @@
 /** biome-ignore-all lint/suspicious/noConsole: <utility> */
 import type { Edge, Node } from "@xyflow/react";
 import { jsonify } from "surrealdb";
-import { getDb } from "@/db/surreal";
+import { getClientDb } from "@/db/client-db";
 
 async function createGraph(): Promise<void> {
-  const db = await getDb();
+  const db = await getClientDb();
 
   if (!db) {
     console.error("Database not initialized");
@@ -65,7 +65,7 @@ async function createGraph(): Promise<void> {
       },
     ];
 
-    // No edges as requested
+    // No initial edges
     const edges: Edge[] = [];
 
     const graph = await db.create("graph", {
@@ -74,9 +74,9 @@ async function createGraph(): Promise<void> {
       edges,
     });
 
-    console.log("✅ Graph created:", jsonify(graph));
+    console.log("Graph created:", jsonify(graph));
   } catch (err: unknown) {
-    console.error("❌ Failed to create graph:", err);
+    console.error("Failed to create graph:", err instanceof Error ? err.message : String(err));
   } finally {
     await db.close();
   }
