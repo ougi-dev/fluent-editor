@@ -1,4 +1,12 @@
-// New ESNext module based on https://github.com/lukeed/clsx
+/**
+ * The code in this file is copied from https://github.com/lukeed/clsx and modified to suit the needs of fluent-editor better.
+ *
+ * Specifically:
+ * - Runtime code from https://github.com/lukeed/clsx/blob/v2.1.1/src/index.js
+ * - TypeScript types from https://github.com/lukeed/clsx/blob/v2.1.1/clsx.d.ts
+ *
+ * Original code has MIT license: Copyright (c) Luke Edwards <luke.edwards05@gmail.com> (lukeed.com)
+ */
 export type ClassValue =
   | string
   | number
