@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import { Activity } from "react";
 import { cn } from "@/lib/utils";
 
 export type StatusBarItemProps = {
@@ -21,9 +22,11 @@ export function StatusBarItem({
         className
       )}
     >
-      {IconComponent && (
-        <IconComponent className={children ? "mr-1" : ""} size={16} />
-      )}
+      <Activity mode={IconComponent ? "visible" : "hidden"}>
+        {IconComponent ? (
+          <IconComponent className={children ? "mr-1" : ""} size={16} />
+        ) : null}
+      </Activity>
       {children}
     </div>
   );
