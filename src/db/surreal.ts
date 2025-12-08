@@ -9,14 +9,13 @@ type DbConfig = {
 };
 
 const DEFAULT_CONFIG: DbConfig = {
-  url: process.env.SURREALDB_URL || "http://127.0.0.1:8000/rpc",
+  url: process.env.SURREALDB_URL || "ws://127.0.0.1:8000",
   namespace: process.env.SURREALDB_NAMESPACE || "test",
   database: process.env.SURREALDB_DATABASE || "test",
   username: process.env.SURREALDB_USER!,
   password: process.env.SURREALDB_PASSWORD!,
 };
 
-// Define the function to get the database instance
 export async function getDb(
   config: DbConfig = DEFAULT_CONFIG
 ): Promise<Surreal> {

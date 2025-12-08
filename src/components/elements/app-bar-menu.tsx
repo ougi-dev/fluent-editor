@@ -15,11 +15,10 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { useFullscreen } from "@/hooks/use-fullscreen";
 
 export function AppBarMenu() {
   return (
-    <Menubar>
+    <Menubar className="border-0">
       {/* FILE MENU */}
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
@@ -65,7 +64,9 @@ export function AppBarMenu() {
           <MenubarItem>
             Redo
             <MenubarShortcut>
-              <Kbd>⇧Ctrl + Z</Kbd>
+              <Kbd>Ctrl</Kbd>
+              <span className="text-foreground text-sm">+</span>
+              <Kbd>Y</Kbd>
             </MenubarShortcut>
           </MenubarItem>
           <MenubarSeparator />
@@ -140,9 +141,7 @@ export function AppBarMenu() {
             </MenubarShortcut>
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem onClick={useFullscreen().toggleFullscreen}>
-            Toggle Fullscreen
-          </MenubarItem>
+          <MenubarItem>Toggle Fullscreen</MenubarItem>
           <MenubarItem>Hide Sidebar</MenubarItem>
         </MenubarContent>
       </MenubarMenu>

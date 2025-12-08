@@ -3,7 +3,7 @@
 import * as MenubarPrimitive from "@radix-ui/react-menubar";
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
 import type * as React from "react";
-
+import { KbdGroup } from "@/components/ui/kbd";
 import { cn } from "@/lib/utils";
 
 function Menubar({
@@ -55,7 +55,7 @@ function MenubarTrigger({
   return (
     <MenubarPrimitive.Trigger
       className={cn(
-        "flex select-none items-center rounded-sm px-2 py-1 font-medium text-sm outline-hidden focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
+        "flex select-none items-center rounded-sm px-2 py-1 font-medium text-sm outline-hidden hover:bg-accent focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
         className
       )}
       data-slot="menubar-trigger"
@@ -194,16 +194,10 @@ function MenubarSeparator({
   );
 }
 
-function MenubarShortcut({
-  className,
-  ...props
-}: React.ComponentProps<"span">) {
+function MenubarShortcut({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <span
-      className={cn(
-        "ml-auto text-muted-foreground text-xs tracking-widest",
-        className
-      )}
+    <KbdGroup
+      className={cn("ml-auto tracking-widest", className)}
       data-slot="menubar-shortcut"
       {...props}
     />

@@ -10,7 +10,7 @@ type DbConfig = {
 
 // Configuration - uses environment variables or defaults
 const DEFAULT_CONFIG: DbConfig = {
-  url: process.env.SURREALDB_URL || "http://127.0.0.1:8000/rpc",
+  url: process.env.SURREALDB_URL || "ws://127.0.0.1:8000/rpc",
   namespace: process.env.SURREALDB_NAMESPACE || "test",
   database: process.env.SURREALDB_DATABASE || "test",
   username: process.env.SURREALDB_USER || "root",
@@ -38,7 +38,6 @@ export async function getClientDb(): Promise<Surreal> {
     });
     return db;
   } catch (err) {
-    // biome-ignore lint/suspicious/noConsole: <error-logging>
     console.error(
       "Failed to connect to SurrealDB:",
       err instanceof Error ? err.message : String(err)

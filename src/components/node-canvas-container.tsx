@@ -10,7 +10,7 @@ import {
   ReactFlow,
   ReactFlowProvider,
 } from "@xyflow/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Activity, useCallback, useEffect, useRef, useState } from "react";
 import "@xyflow/react/dist/style.css";
 
 import type {
@@ -27,6 +27,7 @@ import { useEdgeSync } from "@/hooks/use-edge-sync";
 import { useLiveQuery } from "@/hooks/use-live-query";
 import { useNodeSync } from "@/hooks/use-node-sync";
 import { NodeSyncContext } from "@/hooks/use-update-node-data";
+import { viewComponent } from "@/lib/utils";
 import { editorSettings } from "@/lib/utils/editor-settings";
 
 type NodeCanvasContainerProps = {
@@ -185,8 +186,12 @@ function NodeCanvasInner({
           proOptions={{ hideAttribution: true }}
         >
           <Background variant={editorSettings.backgroundPattern} />
-          {editorSettings.showMinimap && <MiniMap />}
-          {editorSettings.showControls && <Controls />}
+          <Activity mode={viewComponent(editorSettings.showMinimap)}>
+            <MiniMap />
+          </Activity>
+          <Activity mode={viewComponent(editorSettings.showControls)}>
+            <Controls />
+          </Activity>
         </ReactFlow>
       </NodeSyncContext.Provider>
     </div>

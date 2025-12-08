@@ -13,7 +13,7 @@ async function createGraph(): Promise<void> {
   }
 
   try {
-    // Create a bunch of nodes including our custom IfNode (type: "if")
+    // Create a bunch of nodes including a custom IfNode (type: "if")
     const nodes: Node[] = [
       {
         id: "if-1",
@@ -62,6 +62,12 @@ async function createGraph(): Promise<void> {
         type: "default",
         position: { x: 720, y: 80 },
         data: { label: "Cutscene" },
+      },
+      {
+        id: "getvar-1",
+        type: "get-var",
+        position: { x: 920, y: 120 },
+        data: { varName: "player_gold", varValue: 100 },
       },
     ];
 

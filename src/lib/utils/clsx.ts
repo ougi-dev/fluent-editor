@@ -7,6 +7,7 @@
  *
  * Original code has MIT license: Copyright (c) Luke Edwards <luke.edwards05@gmail.com> (lukeed.com)
  */
+
 export type ClassValue =
   | string
   | number
